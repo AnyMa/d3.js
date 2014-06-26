@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="test/scale/|src/selection/|src/format/|test/layout/|test/arrays/|test/selection/|src/transition/|src/behavior/|src/event/|src/geom/voronoi/|test/event/|src/time/|src/geo/|test/dsv/|src/dsv/|lib/science/|src/interpolate/|test/format/|src/geom/|test/interpolate/|test/transition/|test/locale/|test/geo/|test/core/|src/scale/|lib/colorbrewer/|test/color/|src/core/|src/|test/xhr/|src/compat/|test/time/|test/geom/|src/locale/|test/|src/arrays/|src/layout/|src/svg/|src/math/|test/math/|src/xhr/|src/color/|test/svg/" kind="src" path=""/>
+	<classpathentry kind="src" path="lib/colorbrewer"/>
+	<classpathentry kind="src" path="lib/science"/>
+	<classpathentry excluding="selection/|format/|transition/|behavior/|event/|geom/voronoi/|time/|geo/|dsv/|interpolate/|geom/|scale/|core/|compat/|locale/|arrays/|layout/|svg/|math/|xhr/|color/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/arrays"/>
+	<classpathentry kind="src" path="src/behavior"/>
+	<classpathentry kind="src" path="src/color"/>
+	<classpathentry kind="src" path="src/compat"/>
+	<classpathentry kind="src" path="src/core"/>
+	<classpathentry kind="src" path="src/dsv"/>
+	<classpathentry kind="src" path="src/event"/>
+	<classpathentry kind="src" path="src/format"/>
+	<classpathentry kind="src" path="src/geo"/>
+	<classpathentry excluding="voronoi/" kind="src" path="src/geom"/>
+	<classpathentry kind="src" path="src/geom/voronoi"/>
+	<classpathentry kind="src" path="src/interpolate"/>
+	<classpathentry kind="src" path="src/layout"/>
+	<classpathentry kind="src" path="src/locale"/>
+	<classpathentry kind="src" path="src/math"/>
+	<classpathentry kind="src" path="src/scale"/>
+	<classpathentry kind="src" path="src/selection"/>
+	<classpathentry kind="src" path="src/svg"/>
+	<classpathentry kind="src" path="src/time"/>
+	<classpathentry kind="src" path="src/transition"/>
+	<classpathentry kind="src" path="src/xhr"/>
+	<classpathentry excluding="scale/|layout/|arrays/|selection/|event/|dsv/|format/|interpolate/|transition/|locale/|geo/|core/|color/|xhr/|time/|geom/|math/|svg/" kind="src" path="test"/>
+	<classpathentry kind="src" path="test/arrays"/>
+	<classpathentry kind="src" path="test/color"/>
+	<classpathentry kind="src" path="test/core"/>
+	<classpathentry kind="src" path="test/dsv"/>
+	<classpathentry kind="src" path="test/event"/>
+	<classpathentry kind="src" path="test/format"/>
+	<classpathentry kind="src" path="test/geo"/>
+	<classpathentry kind="src" path="test/geom"/>
+	<classpathentry kind="src" path="test/interpolate"/>
+	<classpathentry kind="src" path="test/layout"/>
+	<classpathentry kind="src" path="test/locale"/>
+	<classpathentry kind="src" path="test/math"/>
+	<classpathentry kind="src" path="test/scale"/>
+	<classpathentry kind="src" path="test/selection"/>
+	<classpathentry kind="src" path="test/svg"/>
+	<classpathentry kind="src" path="test/time"/>
+	<classpathentry kind="src" path="test/transition"/>
+	<classpathentry kind="src" path="test/xhr"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

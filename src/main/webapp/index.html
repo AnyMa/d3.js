@@ -1,0 +1,148 @@
+<html>
+	<head>
+		<title>Simple Line Graph using SVG and d3.js</title>
+		<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
+		<style>
+			/* tell the SVG path to be a thin blue line without any area fill */
+			path {
+				stroke: steelblue;
+				stroke-width: 1;
+				fill: none;
+			}
+			
+			.axis {
+			  shape-rendering: crispEdges;
+			}
+ 
+			.x.axis line {
+			  stroke: lightgrey;
+			}
+ 
+			.x.axis .minor {
+			  stroke-opacity: 1;
+			}
+ 
+			.x.axis path {
+			  display: none;
+			}
+ 
+			.y.axis line, .y.axis path {
+			  fill: none;
+			  stroke: #000;
+			}
+		</style>
+	</head>
+	<body>
+ 
+ 
+	<div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
+ 
+ 
+	<script>
+		/* implementation heavily influenced by http://bl.ocks.org/1166403 */
+		
+		// define dimensions of graph
+		var m = [20, 95, 20, 80]; // margins
+		var w = 1350 - m[1] - m[3]; // width
+		var h = 600 - m[0] - m[2]; // height
+
+		var player = [];
+		var data = [];
+		var lastPos = -1;
+		
+		var color = ["red", "yellow", "green", "blue", "black", "gray", "orange", "brown", "violet", "tomato",
+					"chocolate", "coral", "chartreuse", "cornflowerblue", "crimson", "yellowgreen", "darkblue", "firebrick", "forestgreen", "fuchsia",
+					"gold", "goldenrod", "indianred", "hotpink", "khaki", "lawngreen", "lightgreen", "lightsalmon", "lightseagreen", "lightslategray",
+					"lime", "magenta", "mediumspringgreen", "midnightblue", "olive", "orange", "peru", "royalblue"];
+
+		d3.csv("data.csv", function(dataFile) {
+			player = dataFile.map(function(d) { return [ d["Player"], d["Points"], +d["1"], +d["2"], +d["3"], +d["4"], +d["5"],
+			                             			+d["6"], +d["7"], +d["8"], +d["9"], +d["10"], +d["11"],
+			                             			+d["12"], +d["13"], +d["14"], +d["15"], +d["16"], +d["17"],
+			                             			+d["18"], +d["19"], +d["20"], +d["21"], +d["22"], +d["23"],
+			                             			+d["24"], +d["25"], +d["26"], +d["27"], +d["28"], +d["29"],
+			                             			+d["30"], +d["31"] ]; });
+			for (var i = 0; i < player.length; i++){
+				for (var j = 2; j < player[i].length; j++){
+					if (player[i][j] >= 0) {
+						data[j-2] =  player[i][j];
+					}
+					else{
+						if (lastPos == -1){
+							lastPos = j - 2;
+						}
+					}
+				}
+				// X scale will fit all values from data[] within pixels 0-w
+				var x = d3.scale.linear().domain([0, data.length]).range([0, w]);
+				// Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+				var y = d3.scale.linear().domain([0, 38]).range([0, h]);
+					// automatically determining max range can work something like this
+					// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+
+				// create a line function that can convert data[] into x and y points
+				var line = d3.svg.line()
+					// assign the X function to plot our line as we wish
+					.x(function(d,i) { 
+						return x(i); 
+					})
+					.y(function(d) { 
+						return y(d); 
+					});
+		 
+	  			// Add the line by appending an svg:path element with the data line we created above
+				// do this AFTER the axes above so that the line is above the tick-lines
+	  			graph.append("svg:path")
+	  				.attr("d", line(data))
+					.attr("class", player[i][0].split(" ").join(""))
+					.attr("style", "stroke: " + color[i])
+	  		        .on("mouseover", function(d){graph.selectAll("." + this.getAttribute("class")).style("stroke-width", 6)})
+	  		        .on("mouseout", function(d){graph.selectAll("." + this.getAttribute("class")).style("stroke-width", 1)});
+
+	  			graph.selectAll("text")
+	  				.data(player)
+	  				.enter()
+		  				.append("text")
+						.attr("fill", function(d, i) { return color[i] })
+						.style("font-weight", "bold")
+						.attr("font-size", "10px")
+						.attr("font-family", "sans-serif")
+						.attr("y", function(d, i) { return (i * 14.75 + 17) })
+						.attr("x", (w / lastPos * (lastPos - 1)))
+						.text(function(d) { return "--" + d[0] + " (" + d[1] + ")" })
+		  				.attr("class", function(d) { return d[0].split(" ").join("")} )
+		  		        .on("mouseover", function(d){graph.selectAll("." + this.getAttribute("class")).style("stroke-width", 6)})
+		  		        .on("mouseout", function(d){graph.selectAll("." + this.getAttribute("class")).style("stroke-width", 1)});
+			}
+			console.log(lastPos);
+			// create yAxis
+			var xAxis = d3.svg.axis().scale(x).ticks(0);
+			// Add the x-axis.
+			graph.append("svg:g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + h + ")")
+			      .call(xAxis);
+ 
+			// create left yAxis
+			var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
+			// Add the y-axis to the left
+			graph.append("svg:g")
+			      .attr("class", "y axis")
+			      .attr("transform", "translate(-25,0)")
+			      .call(yAxisLeft);
+			
+	 
+		});
+		// Add an SVG element with the desired dimensions and margin.
+		var graph = d3.select("#graph").append("svg:svg")
+		      .attr("width", w + m[1] + m[3])
+		      .attr("height", h + m[0] + m[2])
+		      .append("svg:g")
+		      .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+ 
+	</script>
+ 
+ 
+ 
+	</body>
+</html>
