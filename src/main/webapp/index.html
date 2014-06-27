@@ -114,7 +114,6 @@
 		  		        .on("mouseover", function(d){graph.selectAll("." + this.getAttribute("class")).style("stroke-width", 6)})
 		  		        .on("mouseout", function(d){graph.selectAll("." + this.getAttribute("class")).style("stroke-width", 1)});
 			}
-			console.log(lastPos);
 			// create yAxis
 			var xAxis = d3.svg.axis().scale(x).ticks(0);
 			// Add the x-axis.
